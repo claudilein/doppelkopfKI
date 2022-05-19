@@ -1,0 +1,15 @@
+Hallo?
+
+Alias Rumpel
+Partie 1
+Regeln 0
+Spieler Randy Donald Minnie Rumpel
+Hand 12 Dx Dk Bx Bh Ak Ax 10x 9x Ap 9p Kh 9h
+Augen Randy 0 Minnie 0 Rumpel 0 Donald 0
+Stich 1
+Karte Randy 9p
+Karte Donald Ap
+Karte Minnie Kp
+Spielbar 2 Ap 9p
+Ansage? 6 Keine Einfach Keine-90 Keine-60 Keine-30 Schwarz
+Karte?
