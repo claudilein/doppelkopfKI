@@ -19,7 +19,7 @@ class Brain:
         self.learningRate = 0.1
         self.discountFactor = 0.9
 
-
+        # read in Q matrix, if we already learned something in the past
         if os.path.isfile(filename):
             f = open(filename, "r")
             line = f.readline()
@@ -106,11 +106,11 @@ class Brain:
 
             
         card = gameState.playableCards[cardIndex]
-        self.memory.setLastAction(cardToInt[card])
+        self.memory.storeAction(cardToInt[card])
             
         restHand = list(gameState.hand)
         restHand.remove(card)
-        self.memory.setLastRestHand(list(gameState.hand))
+        self.memory.storeRestHand(list(gameState.hand))
         return card
 
 
@@ -159,7 +159,7 @@ class Brain:
             reward = self.memory.tricks[i].evaluateTrick() / 44.0
 
             # logging.debug("Trick " + str(i) + ": " + \
-            #    str((1 - self.learningRate) * self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action]) + \
+            #    str((1 - self.<learningRate) * self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action]) + \
             #    " + " + str(self.learningRate) + " * (" + str(reward) + " + " + str(self.discountFactor) + " * " + \
             #    str(maxCard) + " = " + \
             #    str((1 - self.learningRate) * self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action] + \

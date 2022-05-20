@@ -174,7 +174,7 @@ def inputTakes(player, pips):
             gameState.setPosition(gameState.players[j].alias)
             gameState.players[j].pips += pips
 
-
+# Take in input from stdin (communication from the engine) and trigger the respective actions
 def readInput(gameState):
     input = sys.stdin.readline()
     params = re.split(' |\n', input)
@@ -206,6 +206,7 @@ def readInput(gameState):
 
         elif params[0] == "Augen":
             pips = []
+            # range from 1 to 8 (inclusive) with step size 2
             for i in range(1,8,2):                
                 pips.append([params[i], int(params[i + 1])])
                 
@@ -235,8 +236,8 @@ def readInput(gameState):
             
 random.seed()
 memory = Memory()
-# brain = Brain(memory)
-brain = Randy()
+brain = Brain(memory)
+# brain = Randy()
 gameState = GameState()
 statistics = Statistics()
 logging.basicConfig(filename='debug.log',level=logging.DEBUG)

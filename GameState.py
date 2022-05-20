@@ -48,8 +48,16 @@ class GameState:
                 break
 
 
+    def getPlayerIndex(self, player):
+        for i, p in enumerate(self.players):
+            if p.alias == player:
+                return i
+        return -1        
+              
+                
+
     def setPlayerTeam(self, player, team):
-        playerIndex = self.players.index(player)
+        playerIndex = self.getPlayerIndex(player)
         if team == Team.RE:
             self.players[playerIndex].team = Team.RE
         else:

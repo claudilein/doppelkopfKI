@@ -1,15 +1,16 @@
 import logging
 from GameData import *
 
+# At the beginning of the trick, memory space for it is reserved. 
+# While other players (and myself) play the cards, I fill the space with information about that trick,
+# e.g. who played what card, what action did I choose and what did my rest hand look like at that point in time.
 class Memory:
     def __init__(self):             
         self.tricks = []
         
-    
 
     def resetMemory(self):
         self.tricks.clear()
-
 
     def addNewEmptyTrick(self):
         self.tricks.append(Trick())
