@@ -22,6 +22,7 @@ class GameState:
 
     # reduce to 3, don't need myself in this
     def setPlayers(self, player1, player2, player3, player4):
+        self.players = []
         self.players.append(player1)
         self.players.append(player2)
         self.players.append(player3)
@@ -78,7 +79,7 @@ class GameState:
             if player.team == Team.RE:
                 countRe += 1
 
-        if countTeamKnown > 2:
+        if countTeamKnown == 2:
             if countRe == 2:
                 self.setPlayerTeam(playerUnknown, Team.KONTRA)
             else:
