@@ -138,7 +138,7 @@ def inputMatch(matchNumber):
     gameState.reset()
     if matchNumber > 1:                
         memory.resetMemory()
-        if matchNumber % 100 == 0:
+        if matchNumber % 1000 == 0:
             brain.saveToDisk()
             statistics.computeExpectedValues()
             statistics.computePipsToPoints()

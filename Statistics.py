@@ -108,6 +108,7 @@ class Statistics:
                 winPercentage = bucketsContra[bucket] * 100 / countContra[bucket]
             output += str(winPercentage) + "\n"
 
+
         stopTime = time.time()
         logging.debug("Time elapsed: " + str(stopTime - startTime))
 

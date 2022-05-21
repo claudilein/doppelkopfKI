@@ -14,10 +14,11 @@ class Brain:
 
         self.memory = memory
         #self.Q = [[random.random() for x in range(24)] for y in range(len(Round) * len(Position))]
-        self.Q = [[0.5 for x in range(24)] for y in range(len(Round) * len(Position))]   
+        self.Q = [[0.0 for x in range(24)] for y in range(len(Round) * len(Position))]   
         
         self.learningRate = 0.1
-        self.discountFactor = 0.9
+        self.discountFactor = 1.0
+        self.epsilon = 0.1
 
         # read in Q matrix, if we already learned something in the past
         if os.path.isfile(filename):
@@ -89,7 +90,7 @@ class Brain:
             randomNr = random.random()
 
             # do proper exploration / exploitation with diminishing epsilon over nr of games played
-            if (randomNr < 0.025):
+            if (randomNr < self.epsilon):
                 cardIndex = randomCard
             else:        
                 #output = ""
@@ -117,9 +118,10 @@ class Brain:
 
     def learn(self, gameState, points):
 
-        for i in range(11,-1,-1):
+        for i in range(0,12,1):
             maxCard = float("-inf")
             if i < 11:                
+                reward = 0
                 nextState = self.memory.tricks[i + 1].state
 
                 #State(Round.ONE, Position.FIRST)
@@ -134,6 +136,7 @@ class Brain:
                         maxCard = weight
             else:
                 maxCard = 0
+                reward = points
 
                 #newState = State(Round.ONE, Position.FIRST)
                 #newState.round = Round(i + 1)
@@ -156,7 +159,7 @@ class Brain:
             #    reward = 0.0
 
             
-            reward = self.memory.tricks[i].evaluateTrick() / 44.0
+            #reward = self.memory.tricks[i].evaluateTrick() / 44.0
 
             # logging.debug("Trick " + str(i) + ": " + \
             #    str((1 - self.<learningRate) * self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action]) + \
@@ -164,10 +167,11 @@ class Brain:
             #    str(maxCard) + " = " + \
             #    str((1 - self.learningRate) * self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action] + \
             #    self.learningRate * (reward + self.discountFactor * maxCard)))
+            
+            previousWeight = self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action]
 
             self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action] = \
-                (1 - self.learningRate) * self.Q[self.memory.tricks[i].state.getInt()][self.memory.tricks[i].action] + \
-                self.learningRate * (reward + self.discountFactor * maxCard)
+                (1 - self.learningRate) * previousWeight + self.learningRate * (reward + self.discountFactor * maxCard)
 
     
     def saveToDisk(self):
